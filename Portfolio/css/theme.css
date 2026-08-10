@@ -1,0 +1,198 @@
+/* ============================================
+   PORTFOLIO - Dark / Light Theme System
+   Author: Yukta Arora
+   Strategy: CSS custom properties swapped via
+   [data-theme="dark"] on <html>, with
+   prefers-color-scheme as the default fallback.
+   ============================================ */
+
+/* ---------- Light Theme (Default) ---------- */
+:root {
+  /* Core brand */
+  --primary:            hsl(221, 83%, 53%);   /* #2563EB */
+  --primary-dark:       hsl(221, 83%, 43%);   /* #1D4ED8 */
+  --primary-light:      hsl(221, 83%, 96%);   /* soft blue tint */
+  --primary-glow:       hsla(221, 83%, 53%, 0.25);
+  --accent:             hsl(199, 92%, 55%);   /* #38BDF8 */
+  --accent-dark:        hsl(199, 92%, 40%);
+
+  /* Surfaces */
+  --bg:                 hsl(210, 40%, 98%);   /* #F8FAFC */
+  --bg-white:           hsl(0, 0%, 100%);
+  --bg-elevated:        hsl(210, 40%, 96%);
+  --bg-card:            hsl(0, 0%, 100%);
+  --bg-code:            hsl(215, 28%, 17%);
+
+  /* Text */
+  --text-primary:       hsl(215, 28%, 17%);   /* #1E293B */
+  --text-secondary:     hsl(215, 16%, 47%);   /* #475569 */
+  --text-light:         hsl(215, 16%, 65%);   /* #94A3B8 */
+  --text-inverse:       hsl(0, 0%, 100%);
+
+  /* Borders */
+  --border:             hsl(214, 32%, 91%);   /* #E2E8F0 */
+  --border-strong:      hsl(215, 20%, 80%);
+
+  /* Shadows */
+  --shadow-xs:   0 1px 2px  hsla(215, 28%, 17%, .04);
+  --shadow-sm:   0 1px 4px  hsla(215, 28%, 17%, .08);
+  --shadow-md:   0 4px 16px hsla(215, 28%, 17%, .10);
+  --shadow-lg:   0 12px 36px hsla(215, 28%, 17%, .13);
+  --shadow-xl:   0 24px 64px hsla(215, 28%, 17%, .16);
+  --shadow-glow: 0 0 24px var(--primary-glow);
+
+  /* Nav glass */
+  --nav-bg:      hsla(0, 0%, 100%, 0.88);
+  --nav-border:  hsla(214, 32%, 91%, 0.8);
+
+  /* Footer */
+  --footer-bg:   hsl(215, 28%, 17%);
+  --footer-text: hsl(215, 16%, 77%);
+
+  /* Radii */
+  --radius-xs:   4px;
+  --radius-sm:   8px;
+  --radius-md:   12px;
+  --radius-lg:   18px;
+  --radius-xl:   24px;
+  --radius-full: 9999px;
+
+  /* Transitions */
+  --transition:        .3s cubic-bezier(.4, 0, .2, 1);
+  --transition-fast:   .15s cubic-bezier(.4, 0, .2, 1);
+  --transition-slow:   .5s cubic-bezier(.4, 0, .2, 1);
+
+  /* Fonts */
+  --font-heading: 'Outfit', 'Inter', system-ui, -apple-system, sans-serif;
+  --font-body:    'Inter', system-ui, -apple-system, sans-serif;
+
+  /* Layout */
+  --max-width:     1200px;
+  --header-height: 68px;
+
+  /* Gradient tokens */
+  --gradient-primary: linear-gradient(135deg, var(--primary), var(--accent));
+  --gradient-hero:    linear-gradient(135deg, var(--bg) 0%, hsl(217, 91%, 96%) 50%, hsl(199, 92%, 94%) 100%);
+  --gradient-card:    linear-gradient(135deg, var(--bg-white), var(--bg-elevated));
+  --gradient-text:    linear-gradient(135deg, var(--primary), var(--accent));
+  --gradient-footer:  linear-gradient(135deg, hsl(215, 28%, 17%) 0%, hsl(222, 47%, 11%) 100%);
+
+  /* Theme toggle icon display */
+  --icon-sun-display:  none;
+  --icon-moon-display: block;
+}
+
+/* ---------- Dark Theme ---------- */
+[data-theme="dark"] {
+  /* Core brand (unchanged hues, adjusted lightness for dark bg) */
+  --primary:            hsl(217, 91%, 65%);
+  --primary-dark:       hsl(217, 91%, 55%);
+  --primary-light:      hsla(217, 91%, 65%, 0.12);
+  --primary-glow:       hsla(217, 91%, 65%, 0.35);
+  --accent:             hsl(199, 96%, 64%);
+  --accent-dark:        hsl(199, 96%, 50%);
+
+  /* Surfaces */
+  --bg:                 hsl(222, 47%, 8%);    /* deep navy */
+  --bg-white:           hsl(222, 47%, 11%);
+  --bg-elevated:        hsl(222, 40%, 14%);
+  --bg-card:            hsl(222, 40%, 13%);
+  --bg-code:            hsl(222, 47%, 7%);
+
+  /* Text */
+  --text-primary:       hsl(210, 40%, 94%);
+  --text-secondary:     hsl(215, 20%, 65%);
+  --text-light:         hsl(215, 16%, 45%);
+  --text-inverse:       hsl(222, 47%, 8%);
+
+  /* Borders */
+  --border:             hsla(215, 30%, 35%, 0.6);
+  --border-strong:      hsla(215, 30%, 45%, 0.7);
+
+  /* Shadows (more saturated in dark mode) */
+  --shadow-xs:   0 1px 2px  hsla(222, 47%, 4%, .3);
+  --shadow-sm:   0 1px 4px  hsla(222, 47%, 4%, .4);
+  --shadow-md:   0 4px 16px hsla(222, 47%, 4%, .5);
+  --shadow-lg:   0 12px 36px hsla(222, 47%, 4%, .6);
+  --shadow-xl:   0 24px 64px hsla(222, 47%, 4%, .7);
+  --shadow-glow: 0 0 32px var(--primary-glow);
+
+  /* Nav glass */
+  --nav-bg:      hsla(222, 47%, 9%, 0.88);
+  --nav-border:  hsla(215, 30%, 30%, 0.5);
+
+  /* Footer */
+  --footer-bg:   hsl(222, 47%, 6%);
+  --footer-text: hsl(215, 16%, 55%);
+
+  /* Gradient overrides */
+  --gradient-hero:    linear-gradient(135deg, var(--bg) 0%, hsl(222, 50%, 12%) 50%, hsl(215, 50%, 14%) 100%);
+  --gradient-card:    linear-gradient(135deg, var(--bg-card), var(--bg-elevated));
+  --gradient-footer:  linear-gradient(135deg, hsl(222, 47%, 6%) 0%, hsl(222, 47%, 4%) 100%);
+
+  /* Theme toggle icon display */
+  --icon-sun-display:  block;
+  --icon-moon-display: none;
+}
+
+/* ---------- OS-level Dark Preference (fallback before JS runs) ---------- */
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    --primary:            hsl(217, 91%, 65%);
+    --primary-dark:       hsl(217, 91%, 55%);
+    --primary-light:      hsla(217, 91%, 65%, 0.12);
+    --primary-glow:       hsla(217, 91%, 65%, 0.35);
+    --accent:             hsl(199, 96%, 64%);
+    --accent-dark:        hsl(199, 96%, 50%);
+    --bg:                 hsl(222, 47%, 8%);
+    --bg-white:           hsl(222, 47%, 11%);
+    --bg-elevated:        hsl(222, 40%, 14%);
+    --bg-card:            hsl(222, 40%, 13%);
+    --bg-code:            hsl(222, 47%, 7%);
+    --text-primary:       hsl(210, 40%, 94%);
+    --text-secondary:     hsl(215, 20%, 65%);
+    --text-light:         hsl(215, 16%, 45%);
+    --text-inverse:       hsl(222, 47%, 8%);
+    --border:             hsla(215, 30%, 35%, 0.6);
+    --border-strong:      hsla(215, 30%, 45%, 0.7);
+    --shadow-xs:   0 1px 2px  hsla(222, 47%, 4%, .3);
+    --shadow-sm:   0 1px 4px  hsla(222, 47%, 4%, .4);
+    --shadow-md:   0 4px 16px hsla(222, 47%, 4%, .5);
+    --shadow-lg:   0 12px 36px hsla(222, 47%, 4%, .6);
+    --shadow-xl:   0 24px 64px hsla(222, 47%, 4%, .7);
+    --shadow-glow: 0 0 32px var(--primary-glow);
+    --nav-bg:      hsla(222, 47%, 9%, 0.88);
+    --nav-border:  hsla(215, 30%, 30%, 0.5);
+    --footer-bg:   hsl(222, 47%, 6%);
+    --footer-text: hsl(215, 16%, 55%);
+    --gradient-hero:    linear-gradient(135deg, var(--bg) 0%, hsl(222, 50%, 12%) 50%, hsl(215, 50%, 14%) 100%);
+    --gradient-card:    linear-gradient(135deg, var(--bg-card), var(--bg-elevated));
+    --gradient-footer:  linear-gradient(135deg, hsl(222, 47%, 6%) 0%, hsl(222, 47%, 4%) 100%);
+    --icon-sun-display:  block;
+    --icon-moon-display: none;
+  }
+}
+
+/* ---------- Smooth Theme Transition ---------- */
+*,
+*::before,
+*::after {
+  transition:
+    background-color var(--transition-slow),
+    border-color     var(--transition-slow),
+    color            var(--transition-slow),
+    box-shadow       var(--transition-slow);
+}
+
+/* Exclude elements where transition causes jank */
+.btn,
+.nav-link,
+.skill-tag,
+.social-icons a,
+.theme-toggle,
+.back-to-top,
+.hamburger span,
+img,
+svg {
+  transition: all var(--transition);
+}

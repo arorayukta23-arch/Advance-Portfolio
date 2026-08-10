@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" data-theme="light">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -19,10 +19,18 @@
   <link rel="icon" type="image/png" href="assets/images/favicon.png">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Outfit:wght@400;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="css/theme.css">
   <link rel="stylesheet" href="css/style.css">
   <link rel="stylesheet" href="css/responsive.css">
   <link rel="stylesheet" href="css/accessibility.css">
+  <script>
+    (function(){
+      var saved = localStorage.getItem('portfolio-theme');
+      var sys = window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light';
+      document.documentElement.setAttribute('data-theme', saved || sys);
+    })();
+  </script>
 </head>
 <body>
   <a href="#main-content" class="skip-link">Skip to main content</a>
@@ -30,16 +38,26 @@
   <header class="site-header" role="banner">
     <nav class="container nav-wrapper" aria-label="Primary navigation">
       <a href="index.html" class="nav-logo" aria-label="Yukta Arora - Home">Y<span>.</span>Arora</a>
-      <button class="hamburger" id="hamburger" aria-label="Toggle navigation menu" aria-expanded="false" aria-controls="nav-menu">
-        <span></span><span></span><span></span>
-      </button>
       <ul class="nav-menu" id="nav-menu" role="menubar">
-        <li role="none"><a href="index.html" class="nav-link" role="menuitem">Home</a></li>
-        <li role="none"><a href="about.html" class="nav-link" role="menuitem">About</a></li>
+        <li role="none"><a href="index.html"    class="nav-link" role="menuitem">Home</a></li>
+        <li role="none"><a href="about.html"    class="nav-link" role="menuitem">About</a></li>
         <li role="none"><a href="projects.html" class="nav-link" role="menuitem">Projects</a></li>
-        <li role="none"><a href="resume.html" class="nav-link" role="menuitem">Resume</a></li>
-        <li role="none"><a href="contact.html" class="nav-link" role="menuitem">Contact</a></li>
+        <li role="none"><a href="resume.html"   class="nav-link" role="menuitem">Resume</a></li>
+        <li role="none"><a href="contact.html"  class="nav-link" role="menuitem">Contact</a></li>
       </ul>
+      <div class="nav-actions">
+        <button class="theme-toggle" id="theme-toggle" aria-label="Switch to dark mode">
+          <svg class="icon-sun" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+            <circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.93 4.93l1.41 1.41M17.66 17.66l1.41 1.41M2 12h2M20 12h2M4.93 19.07l1.41-1.41M17.66 6.34l1.41-1.41"/>
+          </svg>
+          <svg class="icon-moon" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+            <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/>
+          </svg>
+        </button>
+        <button class="hamburger" id="hamburger" aria-label="Toggle navigation menu" aria-expanded="false" aria-controls="nav-menu">
+          <span></span><span></span><span></span>
+        </button>
+      </div>
       <div class="nav-overlay" id="nav-overlay" aria-hidden="true"></div>
     </nav>
   </header>
@@ -47,6 +65,7 @@
   <main id="main-content">
     <section class="page-banner" aria-labelledby="resume-heading">
       <div class="container">
+        <span class="section-tag">Professional</span>
         <h1 id="resume-heading">Resume</h1>
         <div class="section-divider"></div>
         <p>Education, experience, skills, and achievements at a glance.</p>
@@ -57,118 +76,140 @@
       <div class="container">
         <h2 id="resume-content-heading" class="sr-only">Resume Details</h2>
 
-        <!-- Education -->
-        <div class="resume-section fade-in" aria-labelledby="resume-edu">
-          <h3 id="resume-edu">🎓 Education</h3>
-          <div class="timeline">
-            <div class="timeline-item">
-              <h4>B.Tech in Computer Science</h4>
-              <span class="date">2024 – 2028</span>
-              <p>Krishna Institute of Engineering &amp; Technology — CGPA: 7.6/10</p>
+        <div class="resume-layout">
+          <!-- Left Column: main content -->
+          <div>
+            <!-- Education -->
+            <div class="resume-section fade-in" aria-labelledby="resume-edu">
+              <h3 class="resume-section-title" id="resume-edu">
+                <span aria-hidden="true">🎓</span> Education
+              </h3>
+              <div class="timeline">
+                <div class="timeline-item">
+                  <h4>B.Tech in Computer Science</h4>
+                  <span class="date">2024 – 2028</span>
+                  <p class="org">Krishna Institute of Engineering &amp; Technology</p>
+                  <p>CGPA: 7.6 / 10</p>
+                </div>
+                <div class="timeline-item">
+                  <h4>Class XII (CBSE)</h4>
+                  <span class="date">2024</span>
+                  <p class="org">Central Board of Secondary Education</p>
+                  <p>Score: 89.9%</p>
+                </div>
+                <div class="timeline-item">
+                  <h4>Class X (CBSE)</h4>
+                  <span class="date">2022</span>
+                  <p class="org">Central Board of Secondary Education</p>
+                  <p>Score: 93.4%</p>
+                </div>
+              </div>
             </div>
-            <div class="timeline-item">
-              <h4>Class XII (CBSE)</h4>
-              <span class="date">2024</span>
-              <p>Central Board of Secondary Education — 89.9%</p>
-            </div>
-            <div class="timeline-item">
-              <h4>Class X (CBSE)</h4>
-              <span class="date">2022</span>
-              <p>Central Board of Secondary Education — 93.4%</p>
+
+            <!-- Experience -->
+            <div class="resume-section fade-in" aria-labelledby="resume-exp">
+              <h3 class="resume-section-title" id="resume-exp">
+                <span aria-hidden="true">💼</span> Experience
+              </h3>
+              <div class="timeline">
+                <div class="timeline-item">
+                  <h4>AI/ML Intern</h4>
+                  <span class="date">2025 – Present</span>
+                  <p>Working on NLP-based document processing, RAG pipeline development, and building production-grade AI systems with LangChain and FastAPI.</p>
+                </div>
+                <div class="timeline-item">
+                  <h4>Freelance AI Developer</h4>
+                  <span class="date">2024 – 2025</span>
+                  <p>Built custom chatbot solutions and AI-powered analytics tools for small businesses using Python, Gemini API, and LangGraph.</p>
+                </div>
+              </div>
             </div>
           </div>
-        </div>
 
-        <!-- Technical Skills -->
-        <div class="resume-section fade-in" aria-labelledby="resume-skills">
-          <h3 id="resume-skills">💻 Technical Skills</h3>
-          <div class="card" style="margin-top:1rem;">
-            <div class="skills-grid" style="margin-bottom:1rem;">
-              <span class="skill-tag">Python</span>
-              <span class="skill-tag">C/C++</span>
-              <span class="skill-tag">JavaScript</span>
-              <span class="skill-tag">SQL</span>
-              <span class="skill-tag">Dart</span>
-              <span class="skill-tag">LangChain</span>
-              <span class="skill-tag">LangGraph</span>
-              <span class="skill-tag">FastAPI</span>
-              <span class="skill-tag">Flutter</span>
-              <span class="skill-tag">Gemini API</span>
-              <span class="skill-tag">Machine Learning</span>
-              <span class="skill-tag">Deep Learning</span>
-              <span class="skill-tag">NLP</span>
-              <span class="skill-tag">Generative AI</span>
-              <span class="skill-tag">RAG Pipelines</span>
-              <span class="skill-tag">Vector Search</span>
-              <span class="skill-tag">Power BI</span>
-              <span class="skill-tag">Tableau</span>
+          <!-- Right Column: sidebar content -->
+          <div>
+            <!-- Technical Skills -->
+            <div class="resume-section fade-in" aria-labelledby="resume-skills">
+              <h3 class="resume-section-title" id="resume-skills">
+                <span aria-hidden="true">💻</span> Technical Skills
+              </h3>
+              <div class="skills-grid">
+                <span class="skill-tag">Python</span>
+                <span class="skill-tag">C/C++</span>
+                <span class="skill-tag">JavaScript</span>
+                <span class="skill-tag">SQL</span>
+                <span class="skill-tag">Dart</span>
+                <span class="skill-tag">LangChain</span>
+                <span class="skill-tag">LangGraph</span>
+                <span class="skill-tag">FastAPI</span>
+                <span class="skill-tag">Flutter</span>
+                <span class="skill-tag">Gemini API</span>
+                <span class="skill-tag">Machine Learning</span>
+                <span class="skill-tag">Deep Learning</span>
+                <span class="skill-tag">NLP</span>
+                <span class="skill-tag">Generative AI</span>
+                <span class="skill-tag">RAG Pipelines</span>
+                <span class="skill-tag">Vector Search</span>
+                <span class="skill-tag">Power BI</span>
+                <span class="skill-tag">Tableau</span>
+              </div>
             </div>
-          </div>
-        </div>
 
-        <!-- Experience -->
-        <div class="resume-section fade-in" aria-labelledby="resume-exp">
-          <h3 id="resume-exp">💼 Experience</h3>
-          <div class="timeline">
-            <div class="timeline-item">
-              <h4>AI/ML Intern</h4>
-              <span class="date">2025 – Present</span>
-              <p>Working on NLP-based document processing, RAG pipeline development, and building production-grade AI systems with LangChain and FastAPI.</p>
+            <!-- Achievements -->
+            <div class="resume-section fade-in" aria-labelledby="resume-achieve">
+              <h3 class="resume-section-title" id="resume-achieve">
+                <span aria-hidden="true">🏆</span> Achievements
+              </h3>
+              <div class="card" style="padding:1.25rem 1.5rem;">
+                <ul class="achievements-list">
+                  <li>Top 10 finalist at national-level AI Hackathon 2025</li>
+                  <li>Published research on RAG architecture optimization</li>
+                  <li>5-star rating on HackerRank (Problem Solving)</li>
+                  <li>Dean's List — KIET for academic excellence</li>
+                </ul>
+              </div>
             </div>
-            <div class="timeline-item">
-              <h4>Freelance AI Developer</h4>
-              <span class="date">2024 – 2025</span>
-              <p>Built custom chatbot solutions and AI-powered analytics tools for small businesses using Python, Gemini API, and LangGraph.</p>
+
+            <!-- Hackathons -->
+            <div class="resume-section fade-in" aria-labelledby="resume-hack">
+              <h3 class="resume-section-title" id="resume-hack">
+                <span aria-hidden="true">🚀</span> Hackathons
+              </h3>
+              <div class="card" style="padding:1.25rem 1.5rem;">
+                <ul class="achievements-list">
+                  <li>Smart India Hackathon 2025 — AI Track Finalist</li>
+                  <li>Google GenAI Hackathon — Intelligent document assistant</li>
+                  <li>HackWithIndia 2024 — Real-time NLP pipeline</li>
+                </ul>
+              </div>
             </div>
-          </div>
-        </div>
 
-        <!-- Achievements -->
-        <div class="resume-section fade-in" aria-labelledby="resume-achieve">
-          <h3 id="resume-achieve">🏆 Achievements</h3>
-          <div class="card">
-            <ul class="achievements-list">
-              <li>Top 10 finalist at national-level AI Hackathon 2025</li>
-              <li>Published research on RAG architecture optimization</li>
-              <li>5-star rating on HackerRank (Problem Solving)</li>
-              <li>Dean's List — KIET for academic excellence</li>
-            </ul>
-          </div>
-        </div>
-
-        <!-- Hackathons -->
-        <div class="resume-section fade-in" aria-labelledby="resume-hack">
-          <h3 id="resume-hack">🚀 Hackathons</h3>
-          <div class="card">
-            <ul class="achievements-list">
-              <li>Smart India Hackathon 2025 — AI Track Finalist</li>
-              <li>Google GenAI Hackathon — Built an intelligent document assistant</li>
-              <li>HackWithIndia 2024 — Developed a real-time NLP pipeline</li>
-            </ul>
-          </div>
-        </div>
-
-        <!-- Leadership -->
-        <div class="resume-section fade-in" aria-labelledby="resume-lead">
-          <h3 id="resume-lead">👥 Leadership</h3>
-          <div class="card">
-            <ul class="achievements-list">
-              <li>AI/ML Club Lead — KIET</li>
-              <li>Technical Head — College Coding Society</li>
-              <li>Mentor — Junior students in AI &amp; Python programming</li>
-            </ul>
+            <!-- Leadership -->
+            <div class="resume-section fade-in" aria-labelledby="resume-lead">
+              <h3 class="resume-section-title" id="resume-lead">
+                <span aria-hidden="true">👥</span> Leadership
+              </h3>
+              <div class="card" style="padding:1.25rem 1.5rem;">
+                <ul class="achievements-list">
+                  <li>AI/ML Club Lead — KIET</li>
+                  <li>Technical Head — College Coding Society</li>
+                  <li>Mentor — Junior students in AI &amp; Python</li>
+                </ul>
+              </div>
+            </div>
           </div>
         </div>
 
         <!-- Download -->
         <div class="resume-download fade-in">
           <h3>Download Full Resume</h3>
-          <p style="margin-bottom:1.5rem;">Get my complete resume in PDF format.</p>
-          <a href="assets/resume/Yukta_Arora_Resume.pdf" class="btn btn-primary" download aria-label="Download Yukta Arora's resume as PDF">
+          <p>Get my complete resume in PDF format.</p>
+          <a href="assets/resume/Yukta_Arora_Resume.pdf" class="btn btn-primary btn-lg" download aria-label="Download Yukta Arora's resume as PDF">
             <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
             Download Resume (PDF)
           </a>
         </div>
+
       </div>
     </section>
   </main>
@@ -177,7 +218,7 @@
     <div class="container">
       <div class="footer-grid">
         <div class="footer-brand">
-          <a href="index.html" class="nav-logo" aria-label="Home" style="color:#fff;">Y<span>.</span>Arora</a>
+          <a href="index.html" class="nav-logo" aria-label="Home">Y<span>.</span>Arora</a>
           <p>AI-focused Software Engineer specializing in NLP, Generative AI, and building intelligent systems.</p>
         </div>
         <nav class="footer-links" aria-label="Footer navigation">
@@ -199,6 +240,7 @@
           </div>
         </div>
       </div>
+      <div class="footer-divider"></div>
       <div class="footer-bottom">
         <p>&copy; 2024 Yukta Arora. All rights reserved.</p>
       </div>
@@ -206,7 +248,7 @@
   </footer>
 
   <button class="back-to-top" id="back-to-top" aria-label="Back to top">
-    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m18 15-6-6-6 6"/></svg>
+    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m18 15-6-6-6 6"/></svg>
   </button>
 
   <script src="js/script.js"></script>

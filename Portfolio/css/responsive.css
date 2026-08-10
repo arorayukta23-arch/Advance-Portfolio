@@ -1,115 +1,230 @@
 /* ============================================
-   PORTFOLIO - Responsive Styles
-   Breakpoints: 1024px, 768px, 480px
+   PORTFOLIO - Responsive Stylesheet
+   Author: Yukta Arora
+   Strategy: MOBILE-FIRST (base = 320px+)
+   Breakpoints:
+     sm  : min-width 480px  (large mobile)
+     md  : min-width 768px  (tablet)
+     lg  : min-width 1024px (laptop)
+     xl  : min-width 1280px (desktop)
    ============================================ */
 
-/* ---------- Laptop / Small Desktop ---------- */
-@media (max-width: 1024px) {
-  .hero-content { gap: 2.5rem; }
-  .hero-image-wrapper { width: 280px; height: 280px; }
-  .footer-grid { grid-template-columns: 1fr 1fr; }
-  .about-intro { grid-template-columns: 1fr 1.5fr; }
+/* ==========================================
+   BASE (Mobile, 320px+) — already defined in
+   style.css as the default. Overrides below.
+   ========================================== */
+
+/* ---------- sm: 480px+ (Large Mobile) ---------- */
+@media (min-width: 480px) {
+  /* Hero */
+  .hero-image-wrapper { width: 240px; height: 240px; }
+
+  /* Education grid: 2 col on large mobile */
+  .education-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  /* Projects: still single col but a bit more padding */
+  .project-card-image-wrapper { height: 220px; }
+
+  /* Certifications: 2 col */
+  .certifications-grid { grid-template-columns: repeat(2, 1fr); }
+
+  /* Footer bottom */
+  .footer-grid { grid-template-columns: repeat(2, 1fr); }
+  .footer-brand { grid-column: 1 / -1; }
+
+  /* Hero buttons go side by side */
+  .hero-buttons { flex-wrap: nowrap; }
+
+  /* Skills: 2 col */
+  .skills-section-grid { grid-template-columns: repeat(2, 1fr); }
 }
 
-/* ---------- Tablet ---------- */
-@media (max-width: 768px) {
-  /* Navigation */
+/* ---------- md: 768px+ (Tablet) ---------- */
+@media (min-width: 768px) {
+  /* ---- Typography scale-up ---- */
+  html { font-size: 16px; }
+
+  /* ---- Hero ---- */
+  .hero { padding-block: 6rem 5rem; }
+
+  .hero-content {
+    grid-template-columns: 1fr 1fr;
+    grid-template-areas: "text image";
+    gap: 3.5rem;
+    text-align: left;
+  }
+
+  .hero-text .summary { margin-left: 0; }
+  .hero-buttons { justify-content: flex-start; }
+  .hero-social  { justify-content: flex-start; }
+
+  .hero-image-wrapper { width: 300px; height: 300px; }
+
+  /* ---- About ---- */
+  .about-intro {
+    grid-template-columns: 240px 1fr;
+    gap: 3rem;
+    align-items: center;
+  }
+
+  .about-photo-wrapper { justify-content: flex-start; }
+
+  .education-grid { grid-template-columns: repeat(3, 1fr); }
+
+  .skills-section-grid { grid-template-columns: repeat(2, 1fr); }
+
+  /* ---- Projects ---- */
+  .projects-grid { grid-template-columns: repeat(2, 1fr); }
+
+  .project-card-image-wrapper { height: 210px; }
+
+  /* ---- Resume ---- */
+  .resume-layout { grid-template-columns: 1fr; }
+
+  .certifications-grid { grid-template-columns: repeat(2, 1fr); }
+
+  /* ---- Contact ---- */
+  .contact-grid { grid-template-columns: 1fr 1fr; }
+
+  /* ---- Navigation mobile drawer ---- */
+  /* Mobile nav drawer opens at 768- */
+
+  /* ---- Footer ---- */
+  .footer-grid {
+    grid-template-columns: 2fr 1fr 1fr;
+  }
+  .footer-brand { grid-column: auto; }
+
+  /* ---- Section spacing ---- */
+  .section-padding { padding-block: 5rem; }
+
+  /* ---- Page banner ---- */
+  .page-banner { padding: 4.5rem 0 3rem; }
+}
+
+/* ---------- Mobile Nav Drawer (max-width: 767px) ---------- */
+@media (max-width: 767px) {
+  /* Show hamburger */
+  .hamburger { display: flex; }
+
+  /* Nav menu becomes a drawer */
   .nav-menu {
     position: fixed;
     top: 0;
     right: -100%;
-    width: 280px;
-    height: 100vh;
+    width: min(300px, 85vw);
+    height: 100dvh;
+    height: 100vh; /* fallback */
     background: var(--bg-white);
     flex-direction: column;
     align-items: flex-start;
-    padding: 5rem 2rem 2rem;
-    box-shadow: var(--shadow-lg);
+    padding: calc(var(--header-height) + 1rem) 1.5rem 2rem;
+    box-shadow: var(--shadow-xl);
     transition: right var(--transition);
     z-index: 1000;
+    gap: .25rem;
+    overflow-y: auto;
   }
   .nav-menu.active { right: 0; }
 
   .nav-link {
     width: 100%;
-    padding: .75rem 1rem;
-    font-size: 1.05rem;
+    padding: .85rem 1.1rem;
+    font-size: 1rem;
+    border-radius: var(--radius-sm);
   }
-
-  .hamburger { display: flex; }
 
   .nav-overlay {
     display: none;
     position: fixed;
     inset: 0;
-    background: rgba(0,0,0,.4);
+    background: rgba(0,0,0,.5);
+    backdrop-filter: blur(4px);
     z-index: 999;
   }
   .nav-overlay.active { display: block; }
 
-  /* Hero */
-  .hero { padding: 4rem 0 3rem; }
-  .hero-content {
-    grid-template-columns: 1fr;
-    text-align: center;
-  }
-  .hero-image { order: -1; }
-  .hero-image-wrapper { width: 240px; height: 240px; }
+  /* ---- Hero ---- */
+  .hero { padding-block: 3.5rem 3rem; }
+  .hero-content { text-align: center; }
+  .hero-text .summary { margin-inline: auto; }
   .hero-buttons { justify-content: center; }
-  .hero-social { justify-content: center; }
-  .hero-text .summary { margin-left: auto; margin-right: auto; }
+  .hero-social  { justify-content: center; }
 
-  /* About */
-  .about-intro {
-    grid-template-columns: 1fr;
-    text-align: center;
-  }
-  .about-photo { margin: 0 auto; }
+  /* ---- About ---- */
+  .about-intro { text-align: center; }
+  .about-photo-wrapper { justify-content: center; }
+  .about-text .section-divider { margin-inline: auto; }
 
-  /* Contact */
-  .contact-grid { grid-template-columns: 1fr; }
+  /* ---- Section padding ---- */
+  .section-padding { padding-block: 3.5rem; }
 
-  /* Projects */
-  .projects-grid { grid-template-columns: 1fr; }
-
-  /* Footer */
-  .footer-grid {
-    grid-template-columns: 1fr;
-    text-align: center;
-  }
-  .social-icons { justify-content: center; }
-
-  /* Page Banner */
+  /* ---- Page banner ---- */
   .page-banner { padding: 3rem 0 2rem; }
 
-  /* Section padding */
-  .section-padding { padding: 3.5rem 0; }
+  /* ---- Card ---- */
+  .card { padding: 1.5rem; }
 }
 
-/* ---------- Mobile ---------- */
-@media (max-width: 480px) {
-  html { font-size: 15px; }
+/* ---------- lg: 1024px+ (Laptop / Small Desktop) ---------- */
+@media (min-width: 1024px) {
+  /* ---- Hero ---- */
+  .hero-content { gap: 5rem; }
+  .hero-image-wrapper { width: 340px; height: 340px; }
 
-  .container { width: 92%; padding: 0 .5rem; }
+  /* ---- About ---- */
+  .about-intro { grid-template-columns: 280px 1fr; gap: 4rem; }
 
-  .hero { padding: 3rem 0 2rem; }
-  .hero-image-wrapper { width: 200px; height: 200px; }
-  .hero-buttons { flex-direction: column; align-items: center; }
-  .hero-social { flex-wrap: wrap; justify-content: center; }
+  /* ---- Projects ---- */
+  .projects-grid { grid-template-columns: repeat(2, 1fr); }
 
-  .btn { padding: .65rem 1.25rem; font-size: .9rem; }
+  /* ---- Resume ---- */
+  .resume-layout {
+    grid-template-columns: 3fr 2fr;
+    align-items: start;
+  }
 
-  .education-grid { grid-template-columns: 1fr; }
+  /* ---- Nav: show links, hide hamburger ---- */
+  .hamburger { display: none; }
+  .nav-overlay { display: none !important; }
+  .nav-menu {
+    position: static;
+    width: auto;
+    height: auto;
+    background: transparent;
+    flex-direction: row;
+    padding: 0;
+    box-shadow: none;
+    overflow: visible;
+  }
 
-  .project-card-image { height: 180px; }
+  /* ---- Certifications: 3 col ---- */
+  .certifications-grid { grid-template-columns: repeat(3, 1fr); }
 
-  .section-padding { padding: 2.5rem 0; }
+  /* ---- Skills: 3 col ---- */
+  .skills-section-grid { grid-template-columns: repeat(3, 1fr); }
+}
 
-  .card { padding: 1.25rem; }
+/* ---------- xl: 1280px+ (Wide Desktop) ---------- */
+@media (min-width: 1280px) {
+  /* ---- Container ---- */
+  .container { width: 88%; }
 
-  .timeline { padding-left: 1.5rem; }
+  /* ---- Hero ---- */
+  .hero { padding-block: 7rem 5.5rem; }
+  .hero-content { gap: 6rem; }
+  .hero-image-wrapper { width: 380px; height: 380px; }
 
-  .footer-grid { gap: 1.5rem; }
+  /* ---- Projects: 3 col for large screens (if more cards added) ---- */
+  /* Keep at 2 for now since only 2 projects */
+
+  /* ---- Section padding ---- */
+  .section-padding { padding-block: 6rem; }
+
+  /* ---- Page banner ---- */
+  .page-banner { padding: 5.5rem 0 3.5rem; }
 }
 
 /* ---------- Print ---------- */
@@ -118,12 +233,32 @@
   .site-footer,
   .back-to-top,
   .hamburger,
+  .nav-overlay,
   .hero-buttons,
-  .skip-link { display: none !important; }
+  .skip-link,
+  .theme-toggle { display: none !important; }
 
-  body { background: #fff; color: #000; }
+  body { background: #fff !important; color: #000 !important; }
   main { padding: 0; }
 
-  a { color: #000; text-decoration: underline; }
-  a[href]::after { content: ' (' attr(href) ')'; font-size: .8em; }
+  a { color: #000 !important; text-decoration: underline; }
+  a[href^="http"]::after { content: ' (' attr(href) ')'; font-size: .8em; }
+
+  .page-banner { background: #f5f5f5 !important; padding: 1.5rem 0; }
+  .card { box-shadow: none !important; border: 1px solid #ccc !important; }
+}
+
+/* ---------- Reduced Motion ---------- */
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: .01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: .01ms !important;
+    scroll-behavior: auto !important;
+  }
+
+  .hero-image-wrapper { animation: none; }
+  .hero-image-wrapper::before { animation: none; }
 }

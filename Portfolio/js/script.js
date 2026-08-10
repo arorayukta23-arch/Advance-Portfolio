@@ -1,67 +1,115 @@
 /* ============================================
    PORTFOLIO - Main JavaScript
+   Author: Yukta Arora
    ============================================ */
 
 document.addEventListener('DOMContentLoaded', () => {
   'use strict';
 
-  // ---------- Mobile Menu ----------
-  const hamburger = document.getElementById('hamburger');
-  const navMenu = document.getElementById('nav-menu');
+  // ============================================
+  // 1. DARK / LIGHT MODE THEME TOGGLE
+  // ============================================
+  const html          = document.documentElement;
+  const themeToggle   = document.getElementById('theme-toggle');
+  const THEME_KEY     = 'portfolio-theme';
+
+  function getSystemTheme() {
+    return window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light';
+  }
+
+  function applyTheme(theme) {
+    html.setAttribute('data-theme', theme);
+    if (themeToggle) {
+      themeToggle.setAttribute(
+        'aria-label',
+        theme === 'dark' ? 'Switch to light mode' : 'Switch to dark mode'
+      );
+    }
+  }
+
+  function initTheme() {
+    const saved = localStorage.getItem(THEME_KEY);
+    applyTheme(saved || getSystemTheme());
+  }
+
+  initTheme();
+
+  if (themeToggle) {
+    themeToggle.addEventListener('click', () => {
+      const current = html.getAttribute('data-theme') || getSystemTheme();
+      const next    = current === 'dark' ? 'light' : 'dark';
+      applyTheme(next);
+      localStorage.setItem(THEME_KEY, next);
+
+      // Brief pulse animation on toggle
+      themeToggle.style.transform = 'scale(.88) rotate(20deg)';
+      setTimeout(() => { themeToggle.style.transform = ''; }, 200);
+    });
+  }
+
+  // Sync when OS theme changes (and user hasn't set a preference)
+  window.matchMedia('(prefers-color-scheme: dark)').addEventListener('change', (e) => {
+    if (!localStorage.getItem(THEME_KEY)) {
+      applyTheme(e.matches ? 'dark' : 'light');
+    }
+  });
+
+  // ============================================
+  // 2. MOBILE NAVIGATION MENU
+  // ============================================
+  const hamburger  = document.getElementById('hamburger');
+  const navMenu    = document.getElementById('nav-menu');
   const navOverlay = document.getElementById('nav-overlay');
-  const navLinks = document.querySelectorAll('.nav-link');
+  const navLinks   = document.querySelectorAll('.nav-link');
 
   function openMenu() {
-    hamburger.classList.add('active');
-    navMenu.classList.add('active');
-    navOverlay.classList.add('active');
-    hamburger.setAttribute('aria-expanded', 'true');
+    hamburger?.classList.add('active');
+    navMenu?.classList.add('active');
+    navOverlay?.classList.add('active');
+    hamburger?.setAttribute('aria-expanded', 'true');
     document.body.style.overflow = 'hidden';
-    // Focus first nav link
-    const firstLink = navMenu.querySelector('.nav-link');
+    const firstLink = navMenu?.querySelector('.nav-link');
     if (firstLink) firstLink.focus();
   }
 
   function closeMenu() {
-    hamburger.classList.remove('active');
-    navMenu.classList.remove('active');
-    navOverlay.classList.remove('active');
-    hamburger.setAttribute('aria-expanded', 'false');
+    hamburger?.classList.remove('active');
+    navMenu?.classList.remove('active');
+    navOverlay?.classList.remove('active');
+    hamburger?.setAttribute('aria-expanded', 'false');
     document.body.style.overflow = '';
   }
 
-  if (hamburger) {
-    hamburger.addEventListener('click', () => {
-      const isOpen = hamburger.classList.contains('active');
-      isOpen ? closeMenu() : openMenu();
-    });
-  }
-
-  if (navOverlay) {
-    navOverlay.addEventListener('click', closeMenu);
-  }
-
-  navLinks.forEach(link => {
-    link.addEventListener('click', closeMenu);
+  hamburger?.addEventListener('click', () => {
+    hamburger.classList.contains('active') ? closeMenu() : openMenu();
   });
 
-  // Close menu on Escape
+  navOverlay?.addEventListener('click', closeMenu);
+
+  navLinks.forEach(link => link.addEventListener('click', closeMenu));
+
   document.addEventListener('keydown', (e) => {
-    if (e.key === 'Escape' && navMenu && navMenu.classList.contains('active')) {
+    if (e.key === 'Escape' && navMenu?.classList.contains('active')) {
       closeMenu();
-      hamburger.focus();
+      hamburger?.focus();
     }
   });
 
-  // ---------- Sticky Header Shadow ----------
+  // ============================================
+  // 3. STICKY HEADER
+  // ============================================
   const header = document.querySelector('.site-header');
   if (header) {
-    window.addEventListener('scroll', () => {
+    const onScroll = () => {
       header.classList.toggle('scrolled', window.scrollY > 10);
-    }, { passive: true });
+    };
+    window.addEventListener('scroll', onScroll, { passive: true });
+    onScroll(); // run once on load
   }
 
-  // ---------- Active Navigation Link ----------
+  // ============================================
+  // 4. ACTIVE NAVIGATION LINK
+  // ============================================
   const currentPage = window.location.pathname.split('/').pop() || 'index.html';
   navLinks.forEach(link => {
     const href = link.getAttribute('href');
@@ -71,7 +119,9 @@ document.addEventListener('DOMContentLoaded', () => {
     }
   });
 
-  // ---------- Back to Top Button ----------
+  // ============================================
+  // 5. BACK TO TOP BUTTON
+  // ============================================
   const backToTop = document.getElementById('back-to-top');
   if (backToTop) {
     window.addEventListener('scroll', () => {
@@ -83,9 +133,12 @@ document.addEventListener('DOMContentLoaded', () => {
     });
   }
 
-  // ---------- Scroll Animations ----------
-  const fadeElements = document.querySelectorAll('.fade-in');
-  if (fadeElements.length > 0 && 'IntersectionObserver' in window) {
+  // ============================================
+  // 6. SCROLL REVEAL ANIMATIONS
+  // ============================================
+  const animatedEls = document.querySelectorAll('.fade-in, .slide-in-left, .scale-in');
+
+  if (animatedEls.length > 0 && 'IntersectionObserver' in window) {
     const observer = new IntersectionObserver((entries) => {
       entries.forEach(entry => {
         if (entry.isIntersecting) {
@@ -93,15 +146,17 @@ document.addEventListener('DOMContentLoaded', () => {
           observer.unobserve(entry.target);
         }
       });
-    }, { threshold: 0.1, rootMargin: '0px 0px -50px 0px' });
+    }, { threshold: 0.08, rootMargin: '0px 0px -40px 0px' });
 
-    fadeElements.forEach(el => observer.observe(el));
+    animatedEls.forEach(el => observer.observe(el));
   } else {
-    // Fallback: show all elements
-    fadeElements.forEach(el => el.classList.add('visible'));
+    // Fallback: show all elements immediately
+    animatedEls.forEach(el => el.classList.add('visible'));
   }
 
-  // ---------- Smooth Scroll for Anchor Links ----------
+  // ============================================
+  // 7. SMOOTH SCROLL FOR ANCHOR LINKS
+  // ============================================
   document.querySelectorAll('a[href^="#"]').forEach(anchor => {
     anchor.addEventListener('click', (e) => {
       const targetId = anchor.getAttribute('href');
@@ -110,8 +165,20 @@ document.addEventListener('DOMContentLoaded', () => {
       if (target) {
         e.preventDefault();
         target.scrollIntoView({ behavior: 'smooth', block: 'start' });
-        target.focus({ preventScroll: true });
+        // Update URL without jumping
+        history.pushState(null, '', targetId);
       }
     });
   });
+
+  // ============================================
+  // 8. SKILL TAGS STAGGER ANIMATION
+  // ============================================
+  document.querySelectorAll('.skills-category').forEach(category => {
+    const tags = category.querySelectorAll('.skill-tag');
+    tags.forEach((tag, i) => {
+      tag.style.setProperty('--i', i);
+    });
+  });
+
 });
